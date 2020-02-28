@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="com.github.ebaydatameta:ser-json-fasterxml-java:1.0.1" type="repository">
+    <properties maven-id="com.github.ebaydatameta:ser-json-fasterxml-java:1.0.1" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/ebaydatameta/ser-json-fasterxml-java/1.0.1/ser-json-fasterxml-java-1.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.9.2/jackson-databind-2.9.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.9.2/jackson-core-2.9.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.9.2/jackson-annotations-2.9.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/ebaydatameta/dom-core/1.0.3/dom-core-1.0.3.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/ebaydatameta/util-jdk/1.0.0/util-jdk-1.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
