@@ -1,6 +1,4 @@
 package logic.receiver;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -9,26 +7,17 @@ import java.nio.channels.DatagramChannel;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
-
-//import com.eh7n.f1telemetry.gui.codegeek.RealtimeInt;
+import logic.Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import data.Packet;
-import logic.receiver.PacketDeserializer;
-
-
-import javax.swing.*;
 
 /**
- * The base class for the F1 2018 Telemetry app. Starts up a non-blocking I/O
- * UDP server to read packets from the F1 2018 video game and then hands those
- * packets off to a parallel thread for processing based on the lambda function
- * defined. Leverages a fluent API for initialization.
+ * Receiver class uses non-blocking IO to read data and forming packet from
+ * udp stream. These packets is sent to controller though a parallel thread
+ * for further packet-type specified process
  *
- * Also exposes a main method for starting up a default server
- *
- * @author eh7n
+ * @author Song
  *
  */
 public class Receiver {
@@ -42,8 +31,15 @@ public class Receiver {
     private String bindAddress;
     private int port;
     private Consumer<Packet> packetConsumer;
+    private Controller controller;
 
-    public Receiver() {
+    public Receiver(){
+        bindAddress = DEFAULT_BIND_ADDRESS;
+        port = DEFAULT_PORT;
+    }
+
+    public Receiver(Controller controller) {
+        this.controller=controller;
         bindAddress = DEFAULT_BIND_ADDRESS;
         port = DEFAULT_PORT;
     }
@@ -87,11 +83,11 @@ public class Receiver {
      */
     public Receiver consumeWith(Consumer<Packet> consumer) {
         packetConsumer = consumer;
-        return this; //调用consumer lamdar
+        return this; //调用consumer lambda
     }
 
     /**
-     * Start the F1 2018 Telemetry UDP server
+     * Start the UDP receiver server
      *
      * @throws IOException           if the server fails to start
      * @throws IllegalStateException if you do not define how the packets should be
@@ -129,6 +125,19 @@ public class Receiver {
             executor.shutdown();
         }
     }
+    /**
+     * Sending packets to controller using lambda
+     * @throws IOException
+     */
+
+    public void receivePacket() throws IOException{
+        this.bindTo("0.0.0.0")
+                .onPort(20777)
+                .consumeWith((p) -> {
+                    controller.newPacket(p);//send packet to controller
+                })
+                .start();
+    }
 
     /**
      * Main class in case you want to run the server independently. Uses defaults
@@ -147,12 +156,12 @@ public class Receiver {
                 .bindTo("0.0.0.0")
                 .onPort(20777)
                 .consumeWith((p) -> {
-                    //log.trace(p.toJSON());   //lambda定义consume函数
-                    //p.setInterface(realtimeInt);
-                    p.demo();
-                    //todo: 更改comsume内容
+//                    //log.trace(p.toJSON());   //lambda定义consume函数
+//                    //p.setInterface(realtimeInt);
+//                    p.demo();
                 })
                 .start();
     }
+
 }
 
