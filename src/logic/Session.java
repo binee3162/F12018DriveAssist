@@ -2,7 +2,7 @@ package logic;
 
 import data.Packet;
 import data.PacketCarTelemetryData;
-import data.gui.realtime.RealtimeInt;
+import gui.realtime.RealtimeInt;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 

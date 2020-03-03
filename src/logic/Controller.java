@@ -1,7 +1,7 @@
 package logic;
 
 import data.*;
-import data.gui.realtime.RealtimeInt;
+import gui.realtime.RealtimeInt;
 import logic.receiver.Receiver;
 
 import java.io.IOException;
