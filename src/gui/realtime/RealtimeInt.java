@@ -30,6 +30,8 @@ public class RealtimeInt extends JFrame{
     private JPanel map;
     private JPanel midPanel;
     private JLabel speedUnit;
+    private JLabel lapTimeLabel;
+    private JLabel lapTimeText;
     private JPanel speedPanel;
 
     public RealtimeInt(String title){
@@ -64,10 +66,16 @@ public class RealtimeInt extends JFrame{
         socBar.setStringPainted(true);
         socBar.setFont(socBar.getFont().deriveFont(24f));
 
+        //lap time setup
+        lapTimeLabel.setOpaque(true);
+        lapTimeText.setOpaque(true);
+
         //dummy data
         setSocBar(100);
         setSpeedLabel(200);
         setTyrePressure(30, 40);
+        setLapTime("2:53");
+
         //init map
         MapPanel mapPanel = new MapPanel(3);
         //setContentPane(mapPanel);
@@ -116,5 +124,9 @@ public class RealtimeInt extends JFrame{
     private void createUIComponents() {
         carImage = new JLabel(new ImageIcon("C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\racecar.png"));
 
+    }
+
+    public void setLapTime (String time) {
+        lapTimeLabel.setText(time);
     }
 }
