@@ -20,7 +20,7 @@ public class Controller {
         statisticInt.setVisible(true);
 
         receiver=new Receiver(this);
-        session=new Session(realtimeInt);  //todo:other interface
+        session=new Session(realtimeInt, statisticInt);  //todo:other interface
         receiver.receivePacket();
     }
 

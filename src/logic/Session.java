@@ -2,15 +2,17 @@ package logic;
 
 import data.*;
 import gui.realtime.RealtimeInt;
+import gui.statistic.StatisticInterface;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 public class Session {
     private RealtimeInt realtimeInt;
+    private StatisticInterface statisticInt;
 
-
-    public Session(RealtimeInt realtimeInt){//todo:other interface
-        this.realtimeInt=realtimeInt;
+    public Session(RealtimeInt realtimeInt, StatisticInterface statisticInt){//todo:other interface
+        this.realtimeInt = realtimeInt;
+        this.statisticInt = statisticInt;
         //do something
     }
 
