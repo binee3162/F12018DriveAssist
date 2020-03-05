@@ -1,7 +1,6 @@
 package logic;
 
-import data.Packet;
-import data.PacketCarTelemetryData;
+import data.*;
 import gui.realtime.RealtimeInt;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
@@ -15,13 +14,17 @@ public class Session {
         //do something
     }
 
-    public void handleMotionData(Packet packet){
+    public void handleMotionData(PacketMotionData packet){
 
     }
     public void handleSessionData(Packet packet){
 
     }
-    public void handleLapData(Packet packet){
+    public void handleLapData(PacketLapData packet){
+        float currentLapTime=packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getCurrentLapTime();
+        log.println( "LapTime: "+currentLapTime);
+
+        realtimeInt.setLapTime(""+currentLapTime);
 
     }
     public void handleCarSetupData(Packet packet){
@@ -37,7 +40,7 @@ public class Session {
 
 
     }
-    public void handleEventData(Packet packet){
+    public void handleEventData(PacketEventData packet){
 
     }
     public void handleParticipantsData(Packet packet){
