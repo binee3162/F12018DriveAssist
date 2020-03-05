@@ -2,6 +2,7 @@ package logic;
 
 import data.*;
 import gui.realtime.RealtimeInt;
+import gui.statistic.StatisticInterface;
 import logic.receiver.Receiver;
 
 import java.io.IOException;
@@ -10,10 +11,13 @@ public class Controller {
     private Receiver receiver;
     private Session session;
     private RealtimeInt realtimeInt;
+    private StatisticInterface statisticInt;
 
     public Controller() throws IOException {
         realtimeInt=new RealtimeInt("Realtime Interface");
+        statisticInt = new StatisticInterface();
         realtimeInt.setVisible(true);//todo:more neat
+        statisticInt.setVisible(true);
 
         receiver=new Receiver(this);
         session=new Session(realtimeInt);  //todo:other interface
