@@ -109,11 +109,11 @@ public class RealtimeInt extends JFrame{
         }
     }
 
-    public void setTyrePressure(int frontTyrePressure, int backTyrePressure) {
-        LFtyre.setText(Integer.toString(frontTyrePressure));
-        RFtyre.setText(Integer.toString(frontTyrePressure));
-        LBtyre.setText(Integer.toString(backTyrePressure));
-        RBtyre.setText(Integer.toString(backTyrePressure));
+    public void setTyrePressure(float frontTyrePressure, float backTyrePressure) {
+        LFtyre.setText(Float.toString(frontTyrePressure));
+        RFtyre.setText(Float.toString(frontTyrePressure));
+        LBtyre.setText(Float.toString(backTyrePressure));
+        RBtyre.setText(Float.toString(backTyrePressure));
     }
 
     private void createUIComponents() {

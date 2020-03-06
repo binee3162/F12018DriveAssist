@@ -42,7 +42,7 @@ public class Session {
         realtimeInt.setSpeedLabel((int)speed);
 
         WheelData<Float> tire = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getTirePressure();
-        //realtimeInt.setTyrePressure((int) tire<1>, );
+        realtimeInt.setTyrePressure(3.3f, 6.6f);
 
     }
     public void handleEventData(PacketEventData packet){
