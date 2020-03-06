@@ -1,6 +1,7 @@
 package logic;
 
 import data.*;
+import data.elements.WheelData;
 import gui.realtime.RealtimeInt;
 import gui.statistic.StatisticInterface;
 
@@ -40,6 +41,8 @@ public class Session {
         log.println( "speed: "+speed);
         realtimeInt.setSpeedLabel((int)speed);
 
+        WheelData<Float> tire = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getTirePressure();
+        //realtimeInt.setTyrePressure((int) tire<1>, );
 
     }
     public void handleEventData(PacketEventData packet){
