@@ -32,6 +32,7 @@ public class RealtimeInt extends JFrame{
     private JLabel speedUnit;
     private JLabel lapTimeLabel;
     private JLabel lapTimeText;
+    private JLabel power;
     private JPanel speedPanel;
 
     public RealtimeInt(String title){
@@ -42,12 +43,6 @@ public class RealtimeInt extends JFrame{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setSize(550, 400);
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new RealtimeInt("Realtime Interface");
-
-        frame.setVisible(true);
     }
 
     public void init (){
@@ -75,6 +70,7 @@ public class RealtimeInt extends JFrame{
         setSpeedLabel(200);
         setTyrePressure(30, 40);
         setLapTime("2:53");
+        setPowerDissipation(200);
 
         //init map
         MapPanel mapPanel = new MapPanel(3);
@@ -89,8 +85,7 @@ public class RealtimeInt extends JFrame{
     public void setSocBar (int percent) {
         socBar.setValue(percent);
         //set the color of the bar
-        int r = 0;
-        int g = 0;
+        int r,g;
         if(percent >= 50) {
             g = 255;
             r = (255 * (100 - percent))/50;
@@ -128,5 +123,9 @@ public class RealtimeInt extends JFrame{
 
     public void setLapTime (String time) {
         lapTimeLabel.setText(time);
+    }
+
+    public void setPowerDissipation(int speed) {
+        power.setText(speed*1.5 + " kWatt");
     }
 }
