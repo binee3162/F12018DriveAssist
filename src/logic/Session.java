@@ -25,11 +25,9 @@ public class Session {
     }
     public void handleLapData(PacketLapData packet){
         float currentLapTime=packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getCurrentLapTime();
-        log.println( "LapTime: "+currentLapTime);
-
-        realtimeInt.setLapTime(""+currentLapTime);
-
+        realtimeInt.setLapTime((int) currentLapTime);
     }
+
     public void handleCarSetupData(Packet packet){
 
     }

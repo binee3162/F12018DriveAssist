@@ -69,7 +69,7 @@ public class RealtimeInt extends JFrame{
         setSocBar(100);
         //setSpeedLabel(200);
         setTyrePressure(30, 40);
-        setLapTime("2:53");
+        //setLapTime("2:53");
         setPowerDissipation(200);
 
         //init map
@@ -133,8 +133,10 @@ public class RealtimeInt extends JFrame{
 
     }
 
-    public void setLapTime (String time) {
-        lapTimeLabel.setText(time);
+    public void setLapTime (int time) {
+        int minutes = time/60;
+        int seconds = time - (minutes);
+        lapTimeLabel.setText(minutes +":"+ seconds);
     }
 
     public void setPowerDissipation(int speed) {
