@@ -41,6 +41,9 @@ public class Session {
         log.println( "speed: "+speed);
         realtimeInt.setSpeedLabel((int)speed);
 
+        boolean drs = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).isDrs();
+        realtimeInt.setDrsIndicator(drs);
+
         WheelData<Float> tire = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getTirePressure();
         realtimeInt.setTyrePressure(3.3f, 6.6f);
 

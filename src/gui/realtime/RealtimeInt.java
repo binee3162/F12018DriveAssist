@@ -51,7 +51,7 @@ public class RealtimeInt extends JFrame{
         drsIndicator.setOpaque(true);
         regenIndicator.setOpaque(true);
         setIndicator(false, radioIndicator);
-        setIndicator(true, drsIndicator);
+        //setIndicator(true, drsIndicator);
         setIndicator(false, regenIndicator);
 
         //state of charge setup
@@ -67,7 +67,7 @@ public class RealtimeInt extends JFrame{
 
         //dummy data
         setSocBar(100);
-        setSpeedLabel(200);
+        //setSpeedLabel(200);
         setTyrePressure(30, 40);
         setLapTime("2:53");
         setPowerDissipation(200);
@@ -96,6 +96,10 @@ public class RealtimeInt extends JFrame{
         }
         socBar.setForeground(new Color(r,g,0));
 
+    }
+
+    public void setDrsIndicator(boolean status){
+        setIndicator(status, drsIndicator);
     }
 
     public void setIndicator (boolean status, JLabel label) {
