@@ -46,7 +46,12 @@ public class Session {
         realtimeInt.setRegenIndicator(amountBrake, (int) speed);
 
         WheelData<Float> tire = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getTirePressure();
-        realtimeInt.setTyrePressure(3.3f, 6.6f);
+        int fl = Math.round(tire.getFrontLeft());
+        int fr = Math.round(tire.getFrontRight());
+        int bl = Math.round(tire.getRearLeft());
+        int br = Math.round(tire.getRearRight());
+        realtimeInt.setTyrePressure(fr, fl, br, bl);
+        statisticInt.setTyrePressure(fr, fl, br, bl);
 
     }
     public void handleEventData(PacketEventData packet){
