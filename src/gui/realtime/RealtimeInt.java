@@ -52,7 +52,7 @@ public class RealtimeInt extends JFrame{
         regenIndicator.setOpaque(true);
         setIndicator(false, radioIndicator);
         //setIndicator(true, drsIndicator);
-        setIndicator(false, regenIndicator);
+        //setIndicator(false, regenIndicator);
 
         //state of charge setup
         socBar.setUI(new ProgressCircleUI());
@@ -100,6 +100,14 @@ public class RealtimeInt extends JFrame{
 
     public void setDrsIndicator(boolean status){
         setIndicator(status, drsIndicator);
+    }
+
+    public void setRegenIndicator(int brake, int speed){
+        if(10<brake & 15<speed){                         //Regen active when brakeAmount higher than 10% and speed higher than 15
+            setIndicator(true, regenIndicator);
+        }else{
+            setIndicator(false, regenIndicator);
+        }
     }
 
     public void setIndicator (boolean status, JLabel label) {
