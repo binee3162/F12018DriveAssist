@@ -33,7 +33,7 @@ public class Session {
 
         boolean statusGame = packet.isNetworkGame();
         boolean paused = packet.isGamePaused();
-        raspberry.setTSAL(statusGame, paused);
+        //raspberry.setTSAL(statusGame, paused); //uncomment when using the raspberry pi
 
     }
     public void handleLapData(PacketLapData packet){
