@@ -103,7 +103,7 @@ public class RealtimeInt extends JFrame{
     }
 
     public void setRegenIndicator(int brake, int speed){
-        if(10<brake & 15<speed){                         //Regen active when brakeAmount higher than 10% and speed higher than 15
+        if(10<brake & 15<speed){            //Regen active when brakeAmount higher than 10% and speed higher than 15
             setIndicator(true, regenIndicator);
         }else{
             setIndicator(false, regenIndicator);
@@ -129,7 +129,8 @@ public class RealtimeInt extends JFrame{
     }
 
     private void createUIComponents() {
-        carImage = new JLabel(new ImageIcon("C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\racecar.png"));
+        carImage = new JLabel(new ImageIcon("D:\\school\\GroepT\\Sem6\\7_EE5\\youKnowWhat\\src\\gui\\realtime\\racecar.png"));
+
     }
 
     public void setLapTime (int time) {

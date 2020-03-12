@@ -77,7 +77,7 @@ public class StatisticInterface extends JFrame {
     }
 
     private void createUIComponents() {
-        carImage = new JLabel(new ImageIcon("racecar.png"));
+        carImage = new JLabel(new ImageIcon("D:\\school\\GroepT\\Sem6\\7_EE5\\youKnowWhat\\src\\gui\\realtime\\racecar.png"));
     }
 
 }
