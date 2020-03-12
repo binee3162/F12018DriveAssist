@@ -2,6 +2,7 @@ package gui.graph;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GraphInt extends JFrame{
     private JPanel mainPanel;
@@ -12,10 +13,10 @@ public class GraphInt extends JFrame{
 
     public  GraphInt(String title){
         super(title);
-        ArrayList<Integer> speedList = new ArrayList<>();
+        HashMap<Long, Integer> speedList = new HashMap<>();
         speed = new GraphPanel("Speed", true, speedList);
         this.speedPanel.add(speed);
-        ArrayList<Integer> throttleList = new ArrayList<>();
+        HashMap<Long, Integer> throttleList = new HashMap<>();
         throttle = new GraphPanel("Throttle", false, throttleList);
         this.throttlePanel.add(throttle);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
