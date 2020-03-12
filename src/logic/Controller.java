@@ -14,17 +14,19 @@ public class Controller {
     private RealtimeInt realtimeInt;
     private StatisticInterface statisticInt;
     private GraphInt graphInt;
+    private RaspberryPiInterface raspberry;
 
     public Controller() throws IOException {
         realtimeInt=new RealtimeInt("Realtime Interface");
         statisticInt = new StatisticInterface();
         graphInt = new GraphInt("Graph Interface");
+        raspberry = new RaspberryPiInterface();
         realtimeInt.setVisible(true);//todo:more neat
         statisticInt.setVisible(true);
         graphInt.setVisible((true));
 
         receiver=new Receiver(this);
-        session=new Session(realtimeInt, statisticInt, graphInt);  //todo:other interface
+        session=new Session(realtimeInt, statisticInt, graphInt, raspberry);  //todo:other interface
         receiver.receivePacket();
     }
 

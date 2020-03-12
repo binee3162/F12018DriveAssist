@@ -1,10 +1,12 @@
 package logic;
 
 import data.*;
+import data.elements.CarStatusData;
 import data.elements.WheelData;
 import gui.graph.GraphInt;
 import gui.realtime.RealtimeInt;
 import gui.statistic.StatisticInterface;
+import logic.RaspberryPiInterface;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
@@ -12,11 +14,13 @@ public class Session {
     private RealtimeInt realtimeInt;
     private StatisticInterface statisticInt;
     private GraphInt graphInt;
+    private RaspberryPiInterface raspberry;
 
-    public Session(RealtimeInt realtimeInt, StatisticInterface statisticInt, GraphInt graphInt){//todo:other interface
+    public Session(RealtimeInt realtimeInt, StatisticInterface statisticInt, GraphInt graphInt, RaspberryPiInterface raspberry){//todo:other interface
         this.realtimeInt = realtimeInt;
         this.statisticInt = statisticInt;
         this.graphInt = graphInt;
+        this.raspberry = raspberry;
         //do something
     }
 
@@ -26,6 +30,10 @@ public class Session {
     public void handleSessionData(PacketSessionData packet){
         float totalLapDistance = packet.getTrackLength();
         graphInt.setTrackDistance((long) totalLapDistance);
+
+        boolean statusGame = packet.isNetworkGame();
+        boolean paused = packet.isGamePaused();
+        //raspberry.setTSAL(statusGame, paused); //uncomment when using the raspberry pi
 
     }
     public void handleLapData(PacketLapData packet){
@@ -40,19 +48,21 @@ public class Session {
     public void handleCarSetupData(Packet packet){
 
     }
-    public void handleCarStatusData(Packet packet){
+    public void handleCarStatusData(PacketCarStatusData packet){
+        float fuelCapacity = packet.getCarStatuses().get(packet.getHeader().getPlayerCarIndex()).getFuelCapacity();
+        float currentFuel = packet.getCarStatuses().get(packet.getHeader().getPlayerCarIndex()).getFuelInTank();
+        realtimeInt.setSocBar(fuelCapacity,currentFuel);
 
     }
     public void handleCarTelemetryData(PacketCarTelemetryData packet){
         float speed=packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getSpeed();
-        log.println( "speed: "+speed);
         realtimeInt.setSpeedLabel((int)speed);
 
         boolean drs = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).isDrs();
         realtimeInt.setDrsIndicator(drs);
 
         int amountBrake = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getBrake(); //gives amount of brake between 0 and 100
-        realtimeInt.setRegenIndicator(amountBrake, (int) speed);
+        realtimeInt.setRegenIndicator(amountBrake);
 
         graphInt.setCurrentSpeed((int) speed);
         WheelData<Float> tire = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getTirePressure();

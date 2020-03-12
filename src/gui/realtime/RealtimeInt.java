@@ -66,7 +66,7 @@ public class RealtimeInt extends JFrame{
         lapTimeText.setOpaque(true);
 
         //dummy data
-        setSocBar(100);
+        //setSocBar(100);
         //setSpeedLabel(200);
         //setTyrePressure(30, 40);
         //setLapTime("2:53");
@@ -82,7 +82,9 @@ public class RealtimeInt extends JFrame{
         speedLabel.setText(Integer.toString(speed));
     }
 
-    public void setSocBar (int percent) {
+    public void setSocBar (float fuelCapacity, float currentFuel) {
+        int percent = (int) (currentFuel/fuelCapacity);
+
         socBar.setValue(percent);
         //set the color of the bar
         int r,g;
@@ -95,15 +97,14 @@ public class RealtimeInt extends JFrame{
             g = (255 * percent )/50;
         }
         socBar.setForeground(new Color(r,g,0));
-
     }
 
     public void setDrsIndicator(boolean status){
         setIndicator(status, drsIndicator);
     }
 
-    public void setRegenIndicator(int brake, int speed){
-        if(10<brake & 15<speed){            //Regen active when brakeAmount higher than 10% and speed higher than 15
+    public void setRegenIndicator(int brake){
+        if(1<brake){            //Regen active when brakeAmount higher than 10% and speed higher than 15
             setIndicator(true, regenIndicator);
         }else{
             setIndicator(false, regenIndicator);
@@ -140,6 +141,7 @@ public class RealtimeInt extends JFrame{
     }
 
     public void setPowerDissipation(int speed) {
+
         power.setText(speed*1.5 + " kWatt");
     }
 }
