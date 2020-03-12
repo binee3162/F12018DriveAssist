@@ -1,6 +1,7 @@
 package logic;
 
 import data.*;
+import data.elements.CarStatusData;
 import data.elements.WheelData;
 import gui.graph.GraphInt;
 import gui.realtime.RealtimeInt;
@@ -40,12 +41,14 @@ public class Session {
     public void handleCarSetupData(Packet packet){
 
     }
-    public void handleCarStatusData(Packet packet){
+    public void handleCarStatusData(PacketCarStatusData packet){
+        float fuelCapacity = packet.getCarStatuses().get(packet.getHeader().getPlayerCarIndex()).getFuelCapacity();
+        float currentFuel = packet.getCarStatuses().get(packet.getHeader().getPlayerCarIndex()).getFuelInTank();
+        realtimeInt.setSocBar(fuelCapacity,currentFuel);
 
     }
     public void handleCarTelemetryData(PacketCarTelemetryData packet){
         float speed=packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getSpeed();
-        log.println( "speed: "+speed);
         realtimeInt.setSpeedLabel((int)speed);
 
         boolean drs = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).isDrs();
