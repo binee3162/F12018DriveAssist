@@ -51,7 +51,7 @@ public class RealtimeInt extends JFrame{
         drsIndicator.setOpaque(true);
         regenIndicator.setOpaque(true);
         setIndicator(false, radioIndicator);
-        setIndicator(true, drsIndicator);
+        setIndicator(false, drsIndicator);
         setIndicator(false, regenIndicator);
 
         //state of charge setup
@@ -67,9 +67,9 @@ public class RealtimeInt extends JFrame{
 
         //dummy data
         setSocBar(100);
-        setSpeedLabel(200);
-        setTyrePressure(30, 40);
-        setLapTime("2:53");
+        //setSpeedLabel(200);
+        //setTyrePressure(30, 40);
+        //setLapTime("2:53");
         setPowerDissipation(200);
 
         //init map
@@ -98,6 +98,18 @@ public class RealtimeInt extends JFrame{
 
     }
 
+    public void setDrsIndicator(boolean status){
+        setIndicator(status, drsIndicator);
+    }
+
+    public void setRegenIndicator(int brake, int speed){
+        if(10<brake & 15<speed){                         //Regen active when brakeAmount higher than 10% and speed higher than 15
+            setIndicator(true, regenIndicator);
+        }else{
+            setIndicator(false, regenIndicator);
+        }
+    }
+
     public void setIndicator (boolean status, JLabel label) {
         if (status) {
             label.setBackground(Color.GREEN);
@@ -109,11 +121,11 @@ public class RealtimeInt extends JFrame{
         }
     }
 
-    public void setTyrePressure(float frontTyrePressure, float backTyrePressure) {
-        LFtyre.setText(Float.toString(frontTyrePressure));
-        RFtyre.setText(Float.toString(frontTyrePressure));
-        LBtyre.setText(Float.toString(backTyrePressure));
-        RBtyre.setText(Float.toString(backTyrePressure));
+    public void setTyrePressure(int RFP,int LFP,int RBP, int LBP) {
+        LFtyre.setText(Integer.toString(LFP));
+        RFtyre.setText(Integer.toString(RFP));
+        LBtyre.setText(Integer.toString(LBP));
+        RBtyre.setText(Integer.toString(RBP));
     }
 
     private void createUIComponents() {
@@ -121,8 +133,10 @@ public class RealtimeInt extends JFrame{
 
     }
 
-    public void setLapTime (String time) {
-        lapTimeLabel.setText(time);
+    public void setLapTime (int time) {
+        int minutes = time/60;
+        int seconds = time - (minutes);
+        lapTimeLabel.setText(minutes +":"+ seconds);
     }
 
     public void setPowerDissipation(int speed) {

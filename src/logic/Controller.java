@@ -57,11 +57,7 @@ public class Controller {
                     session.handleCarStatusData((PacketCarStatusData) packet);
                     break;
 
-
             }
-
-
-
 
         }
         //todo:
