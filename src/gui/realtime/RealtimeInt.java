@@ -130,7 +130,6 @@ public class RealtimeInt extends JFrame{
 
     private void createUIComponents() {
         carImage = new JLabel(new ImageIcon("C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\racecar.png"));
-
     }
 
     public void setLapTime (int time) {
