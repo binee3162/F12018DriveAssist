@@ -62,7 +62,7 @@ public class Session {
         realtimeInt.setDrsIndicator(drs);
 
         int amountBrake = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getBrake(); //gives amount of brake between 0 and 100
-        realtimeInt.setRegenIndicator(amountBrake, (int) speed);
+        realtimeInt.setRegenIndicator(amountBrake);
 
         graphInt.setCurrentSpeed((int) speed);
         WheelData<Float> tire = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getTirePressure();

@@ -103,8 +103,8 @@ public class RealtimeInt extends JFrame{
         setIndicator(status, drsIndicator);
     }
 
-    public void setRegenIndicator(int brake, int speed){
-        if(10<brake && 15<speed){            //Regen active when brakeAmount higher than 10% and speed higher than 15
+    public void setRegenIndicator(int brake){
+        if(1<brake){            //Regen active when brakeAmount higher than 10% and speed higher than 15
             setIndicator(true, regenIndicator);
         }else{
             setIndicator(false, regenIndicator);
@@ -141,6 +141,7 @@ public class RealtimeInt extends JFrame{
     }
 
     public void setPowerDissipation(int speed) {
+
         power.setText(speed*1.5 + " kWatt");
     }
 }
