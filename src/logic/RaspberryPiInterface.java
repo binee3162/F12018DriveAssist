@@ -6,6 +6,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.RaspiPin;
 
 public class RaspberryPiInterface {
+
     /*static GpioController gpiocontroller = GpioFactory.getInstance();
     static GpioPinDigitalOutput greenLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_04); //create a output pin
     static GpioPinDigitalOutput redLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_05); //create a output pin
@@ -18,6 +19,7 @@ public class RaspberryPiInterface {
             lowVoltage();
         }
     }
+
 
     static void lowVoltage() {
         System.out.println("Low voltage is on.");
