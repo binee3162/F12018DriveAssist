@@ -16,7 +16,7 @@ public class Session {
     private GraphInt graphInt;
     private RaspberryPiInterface raspberry;
 
-    public Session(RealtimeInt realtimeInt, StatisticInterface statisticInt, GraphInt graphInt){//todo:other interface
+    public Session(RealtimeInt realtimeInt, StatisticInterface statisticInt, GraphInt graphInt, RaspberryPiInterface raspberry){//todo:other interface
         this.realtimeInt = realtimeInt;
         this.statisticInt = statisticInt;
         this.graphInt = graphInt;
