@@ -30,11 +30,7 @@ public class Session {
     }
     public void handleLapData(PacketLapData packet){
         float currentLapTime=packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getCurrentLapTime();
-        realtimeInt.setLapTime((int) currentLapTime);
-    }
-        log.println( "LapTime: "+currentLapTime);
-
-        realtimeInt.setLapTime(""+currentLapTime);
+        realtimeInt.setLapTime((int)currentLapTime);
         int currentLap = packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getCurrentLapNum();
         graphInt.setLapNumber(currentLap);
         float currentDistance = packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getLapDistance();
@@ -66,7 +62,6 @@ public class Session {
         int br = Math.round(tire.getRearRight());
         realtimeInt.setTyrePressure(fr, fl, br, bl);
         statisticInt.setTyrePressure(fr, fl, br, bl);
-        realtimeInt.setTyrePressure(3.3f, 6.6f);
         int throttle = packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getThrottle();
         graphInt.setCurrentThrottle(throttle);
 

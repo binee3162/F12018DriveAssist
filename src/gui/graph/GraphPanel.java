@@ -45,6 +45,7 @@ public class GraphPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+        setBackground(Color.black);
         switch(lapNumber) {
             case 1:
                 g.setColor(Color.YELLOW);
@@ -119,7 +120,7 @@ public class GraphPanel extends JPanel {
 
 
     private void drawLayout(Graphics g){
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         //y-axis
         g.drawLine(55, 10, 55, 152);
         g.drawLine(55, 10, 50, 15);
