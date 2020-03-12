@@ -47,7 +47,7 @@ public class MapPanel extends JPanel {
     public void readTrackFile(int trackId) {
         //read file and store in List
         //String fileName = "./tracks/" + String.valueOf(trackId) + ".track";
-        String fileName="C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\map\\tracks\\"+trackId+".track";
+        String fileName="D:\\school\\GroepT\\Sem6\\7_EE5\\youKnowWhat\\src\\gui\\realtime\\map\\tracks\\"+trackId+".track";
         try {
             Scanner sc = new Scanner(new File(fileName));
             //first read data that is not important
