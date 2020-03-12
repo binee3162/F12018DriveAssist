@@ -1,9 +1,6 @@
 package gui.graph;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class GraphInt extends JFrame{
     private JPanel mainPanel;
     private JPanel speedPanel;
@@ -13,23 +10,21 @@ public class GraphInt extends JFrame{
 
     public  GraphInt(String title){
         super(title);
-        HashMap<Long, Integer> speedList = new HashMap<>();
-        speed = new GraphPanel("Speed", true, speedList);
+        speed = new GraphPanel("Speed", true);
         this.speedPanel.add(speed);
-        HashMap<Long, Integer> throttleList = new HashMap<>();
-        throttle = new GraphPanel("Throttle", false, throttleList);
+        throttle = new GraphPanel("Throttle", false);
         this.throttlePanel.add(throttle);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setSize(550, 400);
     }
 
-    public void setTrackDistance(long trackDistance){
+    public void setTrackDistance(int trackDistance){
         //total distance of the track
         speed.setTrackDistance(trackDistance);
         throttle.setTrackDistance(trackDistance);
     }
-    public void setCurrentDistance(long currentDistance){
+    public void setCurrentDistance(int currentDistance){
         //distance from the start of the lap
         speed.setCurrentDistance(currentDistance);
         throttle.setCurrentDistance(currentDistance);

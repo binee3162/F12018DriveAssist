@@ -29,7 +29,7 @@ public class Session {
     }
     public void handleSessionData(PacketSessionData packet){
         float totalLapDistance = packet.getTrackLength();
-        graphInt.setTrackDistance((long) totalLapDistance);
+        graphInt.setTrackDistance((int) totalLapDistance);
 
         boolean statusGame = packet.isNetworkGame();
         boolean paused = packet.isGamePaused();
@@ -42,7 +42,7 @@ public class Session {
         int currentLap = packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getCurrentLapNum();
         graphInt.setLapNumber(currentLap);
         float currentDistance = packet.getLapDataList().get(packet.getHeader().getPlayerCarIndex()).getLapDistance();
-        graphInt.setCurrentDistance((long) currentDistance);
+        graphInt.setCurrentDistance((int) currentDistance);
 
     }
     public void handleCarSetupData(Packet packet){
