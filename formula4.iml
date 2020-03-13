@@ -11,6 +11,6 @@
     <orderEntry type="library" name="xchart-3.5.2" level="project" />
     <orderEntry type="library" name="org.slf4j:slf4j-jdk14:1.7.12" level="project" />
     <orderEntry type="library" name="com.github.ebaydatameta:ser-json-fasterxml-java:1.0.1" level="project" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="pi4j" level="project" />
   </component>
 </module>

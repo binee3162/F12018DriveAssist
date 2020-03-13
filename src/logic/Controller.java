@@ -20,13 +20,13 @@ public class Controller {
         realtimeInt=new RealtimeInt("Realtime Interface");
         statisticInt = new StatisticInterface();
         graphInt = new GraphInt("Graph Interface");
-        raspberry = new RaspberryPiInterface();
+        //raspberry = new RaspberryPiInterface(realtimeInt, statisticInt, graphInt); //uncomment when using raspberry pi
         realtimeInt.setVisible(true);//todo:more neat
-        statisticInt.setVisible(true);
-        graphInt.setVisible((true));
+        statisticInt.setVisible(false);
+        graphInt.setVisible((false));
 
         receiver=new Receiver(this);
-        session=new Session(realtimeInt, statisticInt, graphInt, raspberry);  //todo:other interface
+        session=new Session(realtimeInt, statisticInt, graphInt, raspberry);
         receiver.receivePacket();
     }
 
