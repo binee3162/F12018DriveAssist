@@ -36,7 +36,10 @@ public class Session {
     public void handleCarTelemetryData(PacketCarTelemetryData packet){
         float speed=packet.getCarTelemetryData().get(packet.getHeader().getPlayerCarIndex()).getSpeed();
         log.println( "speed: "+speed);
-        realtimeInt.setSpeedLabel((int)speed);
+       // realtimeInt.setSpeedLabel((int)speed);
+        realtimeInt.setSpeed((int)speed);
+        log.println( "hello\n ");
+
 
 
     }

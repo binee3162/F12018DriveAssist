@@ -2,9 +2,12 @@ package gui.realtime;
 
 
 import gui.realtime.map.MapPanel;
+import gui.realtime.map.DashBoard;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 public class RealtimeInt extends JFrame{
 
@@ -29,10 +32,10 @@ public class RealtimeInt extends JFrame{
     private JLabel RBtyre;
     private JPanel map;
     private JPanel midPanel;
-    private JLabel speedUnit;
     private JLabel lapTimeLabel;
     private JLabel lapTimeText;
     private JPanel speedPanel;
+    private DashBoard speedIndicator;
 
     public RealtimeInt(String title){
         super(title);
@@ -72,20 +75,42 @@ public class RealtimeInt extends JFrame{
 
         //dummy data
         setSocBar(100);
-        setSpeedLabel(200);
+        //setSpeedLabel(200);
         setTyrePressure(30, 40);
         setLapTime("2:53");
+
+        //init speed
+
+
+            speedIndicator = new DashBoard();
+            speedIndicator.setValue("1");
+            speedIndicator.setUnit("km/h");
+            speedPanel.add(speedIndicator);
+
+
+
+
+
 
         //init map
         MapPanel mapPanel = new MapPanel(3);
         //setContentPane(mapPanel);
         map.add(mapPanel);
+
+
+
+
     }
 
     public void setSpeedLabel (int speed) {
         speedLabel.setText(Integer.toString(speed));
     }
+    public void setSpeed(int speed){
+        speedIndicator.setValue(speed+"");
+        repaint();
+        log.println( "hello\n ");
 
+    }
     public void setSocBar (int percent) {
         socBar.setValue(percent);
         //set the color of the bar

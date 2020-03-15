@@ -12,16 +12,22 @@ public class Controller {
     private Session session;
     private RealtimeInt realtimeInt;
     private StatisticInterface statisticInt;
-
     public Controller() throws IOException {
         realtimeInt=new RealtimeInt("Realtime Interface");
         statisticInt = new StatisticInterface();
         realtimeInt.setVisible(true);//todo:more neat
         statisticInt.setVisible(true);
 
+
+
         receiver=new Receiver(this);
         session=new Session(realtimeInt);  //todo:other interface
         receiver.receivePacket();
+
+
+
+
+
     }
 
     public void newPacket(Packet packet){
