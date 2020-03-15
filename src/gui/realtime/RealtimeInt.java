@@ -68,7 +68,7 @@ public class RealtimeInt extends JFrame{
         lapTimeText.setOpaque(true);
 
         //dummy data
-//        setSocBar(100);
+        //setSocBar(100,50);
 //        setSpeedLabel(200);
 //        setTyrePressure(30, 40);
 //        setLapTime("2:53");
@@ -94,7 +94,7 @@ public class RealtimeInt extends JFrame{
         this.repaint();
     }
     public void setSocBar (float fuelCapacity, float currentFuel) {
-        int percent = (int) (currentFuel/fuelCapacity);
+        int percent = (int) (100*currentFuel/fuelCapacity);
 
         socBar.setValue(percent);
         //set the color of the bar
