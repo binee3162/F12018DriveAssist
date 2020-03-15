@@ -41,7 +41,7 @@ public class StatisticInterface extends JFrame {
 
     private void init() {
         //dummy data
-        setTyrePressure(30, 40);
+        //setTyrePressure(30, 40);
         setHighScore("1:52 min");
         setPowerConsumption(100);
         setAvgSpeed(100);
@@ -68,15 +68,16 @@ public class StatisticInterface extends JFrame {
         bestLapTimeLabel.setText(time);
     }
 
-    public void setTyrePressure(int frontTyrePressure, int backTyrePressure) {
-        LFtyre.setText(Integer.toString(frontTyrePressure));
-        RFtyre.setText(Integer.toString(frontTyrePressure));
-        LBtyre.setText(Integer.toString(backTyrePressure));
-        RBtyre.setText(Integer.toString(backTyrePressure));
+
+    public void setTyrePressure(int RFP, int LFP, int RBP, int LBP) {
+        LFtyre.setText(Integer.toString(LFP));
+        RFtyre.setText(Integer.toString(RFP));
+        LBtyre.setText(Integer.toString(LBP));
+        RBtyre.setText(Integer.toString(RBP));
     }
 
     private void createUIComponents() {
-        carImage = new JLabel(new ImageIcon("racecar.png"));
+        carImage = new JLabel(new ImageIcon("D:\\school\\GroepT\\Sem6\\7_EE5\\youKnowWhat\\src\\gui\\realtime\\racecar.png"));
     }
 
 }

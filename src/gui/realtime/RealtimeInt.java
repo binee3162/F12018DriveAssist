@@ -1,13 +1,11 @@
 package gui.realtime;
 
 
-import gui.realtime.map.MapPanel;
 import gui.realtime.map.DashBoard;
+import gui.realtime.map.MapPanel;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 public class RealtimeInt extends JFrame{
 
@@ -32,8 +30,10 @@ public class RealtimeInt extends JFrame{
     private JLabel RBtyre;
     private JPanel map;
     private JPanel midPanel;
+    private JLabel speedUnit;
     private JLabel lapTimeLabel;
     private JLabel lapTimeText;
+    private JLabel power;
     private JPanel speedPanel;
     private DashBoard speedIndicator;
 
@@ -47,19 +47,13 @@ public class RealtimeInt extends JFrame{
         this.setSize(550, 400);
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new RealtimeInt("Realtime Interface");
-
-        frame.setVisible(true);
-    }
-
     public void init (){
         //indicator setup
         radioIndicator.setOpaque(true);
         drsIndicator.setOpaque(true);
         regenIndicator.setOpaque(true);
         setIndicator(false, radioIndicator);
-        setIndicator(true, drsIndicator);
+        setIndicator(false, drsIndicator);
         setIndicator(false, regenIndicator);
 
         //state of charge setup
@@ -74,48 +68,37 @@ public class RealtimeInt extends JFrame{
         lapTimeText.setOpaque(true);
 
         //dummy data
-        setSocBar(100);
-        //setSpeedLabel(200);
-        setTyrePressure(30, 40);
-        setLapTime("2:53");
+//        setSocBar(100);
+//        setSpeedLabel(200);
+//        setTyrePressure(30, 40);
+//        setLapTime("2:53");
+        setPowerDissipation(200);
 
-        //init speed
-
-
-            speedIndicator = new DashBoard();
-            speedIndicator.setValue("1");
-            speedIndicator.setUnit("km/h");
-            speedPanel.add(speedIndicator);
-
-
-
-
-
+        //init speed indicator
+        this.speedIndicator = new DashBoard();
+        this.speedIndicator.setValue("1");
+        this.speedIndicator.setUnit("km/h");
+        this.speedPanel.add(this.speedIndicator);
 
         //init map
         MapPanel mapPanel = new MapPanel(3);
         //setContentPane(mapPanel);
         map.add(mapPanel);
-
-
-
-
     }
 
     public void setSpeedLabel (int speed) {
         speedLabel.setText(Integer.toString(speed));
     }
-    public void setSpeed(int speed){
-        speedIndicator.setValue(speed+"");
-        repaint();
-        log.println( "hello\n ");
-
+    public void setSpeed(int speed) {
+        this.speedIndicator.setValue(speed + "");
+        this.repaint();
     }
-    public void setSocBar (int percent) {
+    public void setSocBar (float fuelCapacity, float currentFuel) {
+        int percent = (int) (currentFuel/fuelCapacity);
+
         socBar.setValue(percent);
         //set the color of the bar
-        int r = 0;
-        int g = 0;
+        int r,g;
         if(percent >= 50) {
             g = 255;
             r = (255 * (100 - percent))/50;
@@ -125,7 +108,18 @@ public class RealtimeInt extends JFrame{
             g = (255 * percent )/50;
         }
         socBar.setForeground(new Color(r,g,0));
+    }
 
+    public void setDrsIndicator(boolean status){
+        setIndicator(status, drsIndicator);
+    }
+
+    public void setRegenIndicator(int brake){
+        if(1<brake){            //Regen active when brakeAmount higher than 10% and speed higher than 15
+            setIndicator(true, regenIndicator);
+        }else{
+            setIndicator(false, regenIndicator);
+        }
     }
 
     public void setIndicator (boolean status, JLabel label) {
@@ -139,11 +133,11 @@ public class RealtimeInt extends JFrame{
         }
     }
 
-    public void setTyrePressure(int frontTyrePressure, int backTyrePressure) {
-        LFtyre.setText(Integer.toString(frontTyrePressure));
-        RFtyre.setText(Integer.toString(frontTyrePressure));
-        LBtyre.setText(Integer.toString(backTyrePressure));
-        RBtyre.setText(Integer.toString(backTyrePressure));
+    public void setTyrePressure(int RFP,int LFP,int RBP, int LBP) {
+        LFtyre.setText(Integer.toString(LFP));
+        RFtyre.setText(Integer.toString(RFP));
+        LBtyre.setText(Integer.toString(LBP));
+        RBtyre.setText(Integer.toString(RBP));
     }
 
     private void createUIComponents() {
@@ -151,7 +145,14 @@ public class RealtimeInt extends JFrame{
 
     }
 
-    public void setLapTime (String time) {
-        lapTimeLabel.setText(time);
+    public void setLapTime (int time) {
+        int minutes = time/60;
+        int seconds = time - (minutes);
+        lapTimeLabel.setText(minutes +":"+ seconds);
+    }
+
+    public void setPowerDissipation(int speed) {
+
+        power.setText(speed*1.5 + " kWatt");
     }
 }

@@ -1,6 +1,7 @@
 package logic;
 
 import data.*;
+import gui.graph.GraphInt;
 import gui.realtime.RealtimeInt;
 import gui.statistic.StatisticInterface;
 import logic.receiver.Receiver;
@@ -12,22 +13,21 @@ public class Controller {
     private Session session;
     private RealtimeInt realtimeInt;
     private StatisticInterface statisticInt;
+    private GraphInt graphInt;
+    private RaspberryPiInterface raspberry;
+
     public Controller() throws IOException {
         realtimeInt=new RealtimeInt("Realtime Interface");
         statisticInt = new StatisticInterface();
+        graphInt = new GraphInt("Graph Interface");
+        //raspberry = new RaspberryPiInterface(realtimeInt, statisticInt, graphInt); //uncomment when using raspberry pi
         realtimeInt.setVisible(true);//todo:more neat
-        statisticInt.setVisible(true);
-
-
+        statisticInt.setVisible(false);
+        graphInt.setVisible((false));
 
         receiver=new Receiver(this);
-        session=new Session(realtimeInt);  //todo:other interface
+        session=new Session(realtimeInt, statisticInt, graphInt, raspberry);
         receiver.receivePacket();
-
-
-
-
-
     }
 
     public void newPacket(Packet packet){
@@ -59,11 +59,7 @@ public class Controller {
                     session.handleCarStatusData((PacketCarStatusData) packet);
                     break;
 
-
             }
-
-
-
 
         }
         //todo:
