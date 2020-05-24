@@ -3,7 +3,7 @@ package logic;
 import data.*;
 import gui.graph.GraphInt;
 import gui.realtime.RealtimeInt;
-import gui.statistic.StatisticInterface;
+
 import logic.receiver.Receiver;
 
 import java.io.IOException;
@@ -12,21 +12,21 @@ public class Controller {
     private Receiver receiver;
     private Session session;
     private RealtimeInt realtimeInt;
-    private StatisticInterface statisticInt;
+
     private GraphInt graphInt;
     private RaspberryPiInterface raspberry;
 
     public Controller() throws IOException {
         realtimeInt=new RealtimeInt("Realtime Interface");
-        statisticInt = new StatisticInterface();
+
         graphInt = new GraphInt("Graph Interface");
-        //raspberry = new RaspberryPiInterface(realtimeInt, statisticInt, graphInt); //uncomment when using raspberry pi
+        //raspberry = new RaspberryPiInterface(realtimeInt, graphInt); //uncomment when using raspberry pi
         realtimeInt.setVisible(true);//todo:more neat
-        statisticInt.setVisible(false);
-        graphInt.setVisible((false));
+
+        graphInt.setVisible((true));
 
         receiver=new Receiver(this);
-        session=new Session(realtimeInt, statisticInt, graphInt, raspberry);
+        session=new Session(realtimeInt, graphInt, raspberry);
         receiver.receivePacket();
     }
 
@@ -36,12 +36,14 @@ public class Controller {
 
                 case 0:
                     session.handleMotionData((PacketMotionData) packet);
+
                     break;
                 case 1:
                     session.handleSessionData((PacketSessionData) packet);
                     break;
                 case 2:
                     session.handleLapData((PacketLapData) packet);
+
                     break;
                 case 3:
                     session.handleEventData((PacketEventData) packet);
@@ -54,6 +56,7 @@ public class Controller {
                     break;
                 case 6:
                     session.handleCarTelemetryData((PacketCarTelemetryData) packet);
+
                     break;
                 case 7:
                     session.handleCarStatusData((PacketCarStatusData) packet);

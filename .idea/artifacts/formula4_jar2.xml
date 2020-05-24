@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="formula4:jar2">
+    <output-path>$PROJECT_DIR$/out/artifacts/formula4_jar2</output-path>
+    <root id="archive" name="formula4.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="formula4" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/ebaydatameta/ser-json-fasterxml-java/1.0.1/ser-json-fasterxml-java-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.9.2/jackson-databind-2.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.9.2/jackson-core-2.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.9.2/jackson-annotations-2.9.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.7/commons-lang3-3.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/ebaydatameta/dom-core/1.0.3/dom-core-1.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/ebaydatameta/util-jdk/1.0.0/util-jdk-1.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/xchart-3.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-jdk14/1.7.12/slf4j-jdk14-1.7.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/AbsoluteLayout.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/mariadb-java-client-1.7.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/pi4j/pi4j-gpio-extension/1.2/pi4j-gpio-extension-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/pi4j/pi4j-core/1.2/pi4j-core-1.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

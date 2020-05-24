@@ -116,6 +116,7 @@ public class Receiver {
             while (true) {
                 channel.receive(buf);
                 final Packet packet = PacketDeserializer.read(buf.array());//归类packet
+
                 executor.submit(() -> {
                     packetConsumer.accept(packet);
                 });
@@ -135,6 +136,7 @@ public class Receiver {
                 .onPort(20777)
                 .consumeWith((p) -> {
                     controller.newPacket(p);//send packet to controller
+                    p.toJSON();
                 })
                 .start();
     }

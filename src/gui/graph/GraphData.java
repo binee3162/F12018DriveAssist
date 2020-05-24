@@ -6,6 +6,7 @@ public class GraphData {
     private int lapNumber;
     private ArrayList<Integer> values;
     private ArrayList<Integer> distances;
+
     public GraphData(int lapNumber){
         this.lapNumber = lapNumber;
         values = new ArrayList<>();

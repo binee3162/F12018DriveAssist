@@ -6,6 +6,11 @@ import gui.realtime.map.MapPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+
+import static java.lang.Integer.min;
+
+//import static org.apache.commons.lang3.math.NumberUtils.min;
 
 public class RealtimeInt extends JFrame{
 
@@ -35,9 +40,12 @@ public class RealtimeInt extends JFrame{
     private JLabel lapTimeText;
     private JLabel power;
     private JPanel speedPanel;
+    private JLabel dbStatus;
+    private JLabel comStatus;
     private DashBoard speedIndicator;
+    private MapPanel mapPanel;
 
-    public RealtimeInt(String title){
+    public RealtimeInt(String title) throws IOException {
         super(title);
 
         init(); //setup initial values for every component
@@ -47,7 +55,7 @@ public class RealtimeInt extends JFrame{
         this.setSize(550, 400);
     }
 
-    public void init (){
+    public void init () throws IOException {
         //indicator setup
         radioIndicator.setOpaque(true);
         drsIndicator.setOpaque(true);
@@ -68,7 +76,7 @@ public class RealtimeInt extends JFrame{
         lapTimeText.setOpaque(true);
 
         //dummy data
-        //setSocBar(100,50);
+        setSocBar(100,50);
 //        setSpeedLabel(200);
 //        setTyrePressure(30, 40);
 //        setLapTime("2:53");
@@ -81,9 +89,12 @@ public class RealtimeInt extends JFrame{
         this.speedPanel.add(this.speedIndicator);
 
         //init map
-        MapPanel mapPanel = new MapPanel(3);
-        //setContentPane(mapPanel);
+        mapPanel = new MapPanel();  //size
+        setContentPane(mapPanel);
+        mapPanel.setSize(min(map.getPreferredSize().width,map.getPreferredSize().height));
+        mapPanel.setCircleWidth(5);
         map.add(mapPanel);
+
     }
 
     public void setSpeedLabel (int speed) {
@@ -147,12 +158,31 @@ public class RealtimeInt extends JFrame{
 
     public void setLapTime (int time) {
         int minutes = time/60;
-        int seconds = time - (minutes);
+        int seconds = time - 60*(minutes);
         lapTimeLabel.setText(minutes +":"+ seconds);
     }
 
     public void setPowerDissipation(int speed) {
 
         power.setText(speed*1.5 + " kWatt");
+    }
+
+    public void setPosition(int degree, int x, int y){
+        mapPanel.setPosition(degree, x, y);
+    }
+    public void setTrack(int track){
+        mapPanel.setTrackID(track);
+    }
+
+    public JLabel getDbStatus() {
+        return dbStatus;
+    }
+
+    public JLabel getRadioIndicator() {
+        return radioIndicator;
+    }
+
+    public JLabel getComStatus() {
+        return comStatus;
     }
 }

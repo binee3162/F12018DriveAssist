@@ -77,6 +77,15 @@ public class PacketBuffer {
 	public int getNextUInt16AsInt() {
 		return (ba[i++] & 0xFF) | ((ba[i++] & 0xFF) << 8);
 	}
+	/**
+	 * Gets and converts the next two bytes from an signed 16bit int to an signed
+	 * int
+	 *
+	 * @return the next C int16 in the byte buffer as a Java int
+	 */
+	public int getNextInt16AsInt(){
+		return (ba[i++] & 0xFF)|(ba[i++]<<8);
+	}
 
 	/**
 	 * Gets and converts the next 4 bytes from an unsigned 32bit int to a signed

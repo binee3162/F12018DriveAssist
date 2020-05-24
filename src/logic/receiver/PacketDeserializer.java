@@ -318,12 +318,12 @@ public class PacketDeserializer {
 		carMotionData.setWorldVelocityX(buffer.getNextFloat());
 		carMotionData.setWorldVelocityY(buffer.getNextFloat());
 		carMotionData.setWorldVelocityZ(buffer.getNextFloat());
-		carMotionData.setWorldForwardDirX(buffer.getNextUInt16AsInt() / denormalizer);
-		carMotionData.setWorldForwardDirY(buffer.getNextUInt16AsInt() / denormalizer);
-		carMotionData.setWorldForwardDirZ(buffer.getNextUInt16AsInt() / denormalizer);
-		carMotionData.setWorldRightDirX(buffer.getNextUInt16AsInt() / denormalizer);
-		carMotionData.setWorldRightDirY(buffer.getNextUInt16AsInt() / denormalizer);
-		carMotionData.setWorldRightDirZ(buffer.getNextUInt16AsInt() / denormalizer);
+		carMotionData.setWorldForwardDirX(buffer.getNextInt16AsInt() / denormalizer);
+		carMotionData.setWorldForwardDirY(buffer.getNextInt16AsInt() / denormalizer);
+		carMotionData.setWorldForwardDirZ(buffer.getNextInt16AsInt() / denormalizer);
+		carMotionData.setWorldRightDirX(buffer.getNextInt16AsInt() / denormalizer);
+		carMotionData.setWorldRightDirY(buffer.getNextInt16AsInt() / denormalizer);
+		carMotionData.setWorldRightDirZ(buffer.getNextInt16AsInt() / denormalizer);
 		carMotionData.setgForceLateral(buffer.getNextFloat());
 		carMotionData.setgForceLongitudinal(buffer.getNextFloat());
 		carMotionData.setgForceVertical(buffer.getNextFloat());
@@ -497,7 +497,9 @@ public class PacketDeserializer {
 		List<ParticipantData> participants = new ArrayList<>();
 		for (int k = 0; k < participantsData.getNumCars(); k++) {
 			participants.add(buildParticipantData());
+
 		}
+		participantsData.setParticipants(participants);
 		// Ignore the rest of the data in the buffer
 		return participantsData;
 	}

@@ -5,34 +5,39 @@ import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 import gui.graph.GraphInt;
 import gui.realtime.RealtimeInt;
-import gui.statistic.StatisticInterface;
+import sun.nio.cs.Surrogate;
+
 
 //uncomment when using raspberry pi
 public class RaspberryPiInterface {
-    /*
+
 
     static GpioController gpiocontroller = GpioFactory.getInstance();
-    static GpioPinDigitalOutput seatBeltLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_01); //create a output pin
-    static GpioPinDigitalOutput radioLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_06); //create a output pin
-    static GpioPinDigitalOutput greenLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_04); //create a output pin
-    static GpioPinDigitalOutput redLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_05); //create a output pin
+
+
+    static GpioPinDigitalOutput greenLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_06); //create a output pin
+    static GpioPinDigitalOutput redLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_07); //create a output pin
+    static GpioPinDigitalOutput brakeLED = gpiocontroller.provisionDigitalOutputPin(RaspiPin.GPIO_08); //create a output pin
     //todo: we still have two leds for other error leds
 
-    final GpioPinDigitalInput changIntPB = gpiocontroller.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
-    final GpioPinDigitalInput radioPB = gpiocontroller.provisionDigitalInputPin(RaspiPin.GPIO_03, PinPullResistance.PULL_DOWN);
+    final GpioPinDigitalInput changIntPBlast = gpiocontroller.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
+    final GpioPinDigitalInput changIntPBnext = gpiocontroller.provisionDigitalInputPin(RaspiPin.GPIO_03, PinPullResistance.PULL_DOWN);
+    final GpioPinDigitalInput radioPB = gpiocontroller.provisionDigitalInputPin(RaspiPin.GPIO_05, PinPullResistance.PULL_DOWN);
+    final GpioPinDigitalInput changeMode = gpiocontroller.provisionDigitalInputPin(RaspiPin.GPIO_10, PinPullResistance.PULL_DOWN);
+
 
     private RealtimeInt realtimeInt;
-    private StatisticInterface statisticInt;
+
     private GraphInt graphInt;
 
     static GpioPinDigitalInput[] inputPins;
     private int currentInt;
 
-    public  RaspberryPiInterface(RealtimeInt realtimeInt, StatisticInterface statisticInt, GraphInt graphInt) {
+    public  RaspberryPiInterface(RealtimeInt realtimeInt, GraphInt graphInt) {
         this.realtimeInt = realtimeInt;
-        this.statisticInt = statisticInt;
+
         this.graphInt = graphInt;
-        inputPins = new GpioPinDigitalInput[]{changIntPB, radioPB};
+        inputPins = new GpioPinDigitalInput[]{changIntPBlast, radioPB,changIntPBnext,changeMode};
 
         GpioPinListenerDigital listener  = new GpioPinListenerDigital() {
             @Override
@@ -41,19 +46,26 @@ public class RaspberryPiInterface {
                 //System.out.println(" --> GPIO PIN STATE CHANGE: " + event.getPin().getName() + " = " + event.getState());
                 if(event.getPin().getName().equals("GPIO 2") && event.getState() == PinState.HIGH) {
                     //interface button pressed
-                    if(currentInt++ > 1) currentInt = 0;
+                    if(--currentInt < 0) currentInt = 3;
                     changeInterface();
                 }
-                else if(event.getPin().getName().equals("GPIO 3") && event.getState() == PinState.HIGH) {
+                else if(event.getPin().getName().equals("GPIO 3") && event.getState() == PinState.HIGH){
+                    if(++currentInt >= 4) currentInt = 0;
+                    changeInterface();
+                }
+                else if(event.getPin().getName().equals("GPIO 5") && event.getState() == PinState.HIGH) {
                     //radio button pressed
                     toggleRadioLED();
+                }
+                else if(event.getPin().getName().equals("GPIO 10") && event.getState() == PinState.HIGH) {
+                    //changeMode  button pressed
+                    graphInt.getChangeMode().doClick();
                 }
             }
         };
         gpiocontroller.addListener(listener, inputPins);
 
-        //led test
-        setSeatBeltLED(true);
+
     }
 
     private void changeInterface(){
@@ -64,36 +76,40 @@ public class RaspberryPiInterface {
                 break;
             case 1:
                 realtimeInt.setVisible(false);
-                statisticInt.setVisible(true);
+                graphInt.setVisible(true);
                 break;
             case 2:
-                statisticInt.setVisible(false);
+                realtimeInt.setVisible(true);
                 graphInt.setVisible(true);
                 break;
         }
     }
 
-    public void setSeatBeltLED(boolean state) {
-        if(state) seatBeltLED.high();
-        else seatBeltLED.low();
-    }
+
 
     public void toggleRadioLED() {
-        radioLED.toggle();
+        if(realtimeInt.getRadioIndicator().getText().equals("ON"))
+            realtimeInt.setIndicator(false,realtimeInt.getRadioIndicator());
+        else realtimeInt.setIndicator(true,realtimeInt.getRadioIndicator());
+
     }
 
-    public void setTSAL(boolean game, boolean paused) {
-        if(game && !paused){
+    public void setTSAL( boolean paused) {
+        if(!paused){
             highVoltage();
         }else{
             lowVoltage();
         }
     }
-
+    public void setBrakeLED(float brake){
+        if(brake>15) brakeLED.high();
+        else brakeLED.low();
+    }
 
     static void lowVoltage() {
         System.out.println("Low voltage is on.");
         greenLED.high();
+
         redLED.low();
     }
 
@@ -104,5 +120,5 @@ public class RaspberryPiInterface {
 
     }
 
-     */
+
 }

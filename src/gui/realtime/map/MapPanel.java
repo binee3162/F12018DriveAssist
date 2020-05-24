@@ -1,105 +1,120 @@
 package gui.realtime.map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class MapPanel extends JPanel {
-    private int trackId;
-    private static int i=0;
-    private ArrayList<int[]> trackCoords = new ArrayList<>();
-    private float testMax;
-     private static final int radius = 100;
-    public MapPanel(int trackId){
-        super();
-        this.trackId=trackId;
-        this.setSize(25,25);
-        this.setBackground(new Color(0,0,0,0));
+    private JLabel label;
 
-        readTrackFile(trackId);
-
+    public  void setSize(int size) {
+        this.size = size;
     }
-    //paint when creating panel, use updateUI to fresh content of panel.
+    int trackID=14;
+
+    public  void setCircleWidth(int circleWidth) {
+        this.circleWidth = circleWidth;
+    }
+    private int[] testMax={882,1079,618,613,601,510,1477,991,788,620,1072,1092,734,1002,843,1046,706,738,959,1030,1189,613,991,1046,999};
+    private  int size =300;
+    private BufferedImage image;
+    private  int circleWidth=15;
+    public MapPanel()  {
+        super();
+        this.setBackground(new Color(0,0,0,0));
+        this.setLayout(new GridLayout(1, 1));
+
+        label = new JLabel();
+        label.setSize(size, size);
+        this.add(label);
+
+        loadMap(trackID);
+    }
+    private void loadMap(int trackId) {
+        try {
+            //File ecgFile = new File("/home/pi/EE5/src/gui/realtime/map/tracks/"+trackId+".png");
+
+            File ecgFile = new File("C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\map\\tracks\\" + trackId + ".png");
+            image = ImageIO.read(ecgFile);
+            //todo:文件夹标号多个
+        }catch(Exception e){
+            System.out.println("File 404");
+        }
+    }
+
+    public void setTrackID(int trackID) {
+        this.trackID = trackID;
+        loadMap(trackID);
+    }
+
+    private  BufferedImage processImage(final BufferedImage bufferedimage,
+                                        final int degree, final int x, final int y) {
+        int w = bufferedimage.getWidth();// 得到图片宽度。
+        int h = bufferedimage.getHeight();// 得到图片高度。
+        int type = bufferedimage.getColorModel().getTransparency();// 得到图片透明度。
+        BufferedImage img;// 空的图片。
+        Graphics2D graphics2d;// 空的画笔。
+        //BufferedImage tempimg=bufferedimage.getSubimage(-x*800/858+800-(size -2*circleWidth)/2,y*800/858+800-(size -2*circleWidth)/2, size -2*circleWidth, size -2*circleWidth);
+        BufferedImage tempimg=bufferedimage.getSubimage(-x*800/testMax[trackID]+800-(size -2*circleWidth)/2,y*800/testMax[trackID]+800-(size -2*circleWidth)/2, size -2*circleWidth, size -2*circleWidth);
+        (graphics2d = (img = new BufferedImage(size, size, type))
+                .createGraphics()).setRenderingHint(
+                RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        Ellipse2D.Double shape = new Ellipse2D.Double(circleWidth, circleWidth, size -2*circleWidth, size -2*circleWidth);
+        graphics2d.setClip(shape);  //裁剪圆形
+
+        graphics2d.rotate(Math.toRadians(degree), size /2, size /2);
+
+        graphics2d.drawImage(tempimg,circleWidth, circleWidth,null);
+        graphics2d.setColor(Color.ORANGE);
+        Area area=new Area(new Ellipse2D.Double(size/2-5,size/2-5,10,10));
+        graphics2d.fill(area);
+        //graphics2d.drawOval(size/2-5,size/2-5,10,10);
+        graphics2d.dispose();
+        return img;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawMap(g);
-       // Graphics2D g2d=(Graphics2D) g.create();
-        //g2d.rotate(90);
+
+            drawMap(g);
 
     }
     private void drawMap(Graphics g) {
-        //todo: draw map not always in full scale
-        int[] first = null;
-        Graphics2D g2d = (Graphics2D) g.create();
-        g2d.translate(100,100);
-        g2d.rotate(Math.toRadians(0), 500, 500);  //todo:figure out 是挪画布还是画点
-        for (int[] coord : trackCoords) {
-            if (first == null)
-                first = coord;
-            else {
-                //System.out.println("z: " + coord[0] + " x: " + coord[1]);
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setColor(Color.RED);
-                BasicStroke bs = new BasicStroke(2);
-                g2d.setStroke(bs);
-                //g2d.drawLine(first[1]/8+100,first[0]/8+100,coord[1]/8+100,coord[0]/8+100);
-                g2d.drawLine(first[1] / 4 + 500, first[0] / 4 + 500, coord[1] / 4 + 500, coord[0] / 4 + 500);
-                first = coord;
-            }
-        }
-        if(i++==0){
-            Graphics2D graphics2D=(Graphics2D) g.create();
-            graphics2D.drawOval(500,500,1,1);
-            graphics2D.drawOval(500-radius,500-radius,2*radius,2*radius);
-        }else {
+        Graphics2D g2d=(Graphics2D) g.create();
+        g2d.setColor(Color.RED);
+        BasicStroke bs = new BasicStroke(2);
+        g2d.setStroke(bs);
+            g2d.drawOval(0,0, size, size);
+        Shape inner   =new Ellipse2D.Double(circleWidth, circleWidth, size -2*circleWidth, size -2*circleWidth);
+        Shape outer   =new Ellipse2D.Double(0,0 , size, size);
+        Shape labelArea = new Rectangle2D.Double(0,0, size +2, size +2);
 
-            //Graphics2D graphics2D=(Graphics2D) g.create();
-            AffineTransform transform=new AffineTransform();
-            transform.rotate(Math.toRadians(40), 500, 500);
-            g2d.setTransform(transform);
+        label.setSize(size +2, size +2);
+        Area area = new Area(outer);
+        area.subtract(new Area(inner));
+        g2d.fill(area);
+        area= new Area(labelArea);
+        area.subtract(new Area(outer));
+        g2d.setColor(Color.BLACK);
+        g2d.fill(area);
+        g2d.fill(new Area(inner));
 
-           // g2d.rotate(Math.toRadians(40), 500, 500);
-//            graphics2D.drawOval(500,500,50,50);
-//            graphics2D.drawOval(500-radius+50,500-radius,2*radius,2*radius);
-        }
+    };
 
+    public void setPosition(int degree, int x, int y) {
+        BufferedImage ecgImage= processImage(image, degree,x,y);
+        label.setIcon(new ImageIcon(ecgImage));
+        this.repaint();
 
     }
-
-
-    public void readTrackFile(int trackId) {
-        //read file and store in List
-        //String fileName = "./tracks/" + String.valueOf(trackId) + ".track";
-        //String fileName="C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\map\\tracks\\"+trackId+".track";
-        String fileName="C:\\Users\\Song\\Desktop\\Lecture\\EE5\\formula4\\src\\gui\\realtime\\map\\tracks\\Abu_Dhabi_outerlimit.track";
-        try {
-            Scanner sc = new Scanner(new File(fileName));
-            //first read data that is not important
-            for(int i = 0; i<7;i++) sc.next();
-
-            while (sc.hasNext()) {
-                String fromFile = sc.next();
-                String[] values = fromFile.split(",");
-
-                int[] coord = new int[2];
-                coord[0] = (int)Float.parseFloat(values[1]); //coord[0] = zPos
-                coord[1] = (int)Float.parseFloat(values[2]); //coord[1] = xPos
-                testMax= Math.max(Math.max(Math.abs(coord[0]), Math.abs(coord[1])),testMax);
-                trackCoords.add(coord);
-            }
-            sc.close();
-        }
-
-        catch (FileNotFoundException fnfe)
-        {
-            System.out.println("File " + fileName + " not found");
-        }
-    }
-
-
 }
